@@ -2,6 +2,53 @@
 
 A comprehensive backend system for managing financial records with role-based access control, built for the Zorvyn Backend Developer Internship assignment.
 
+## 🎯 Assignment Submission
+
+**Submitted by:** Anirban Das  
+**Email:** anirbandas64237@gmail.com  
+**Position:** Backend Developer Intern  
+**Company:** Zorvyn FinTech Pvt. Ltd.  
+**Submission Date:** April 3, 2026  
+
+---
+
+## 🌐 Live Deployment
+
+**🚀 Production API**: https://finance-backend-jj4v.onrender.com
+
+**📡 API Status**: 
+```bash
+curl https://finance-backend-jj4v.onrender.com/health
+```
+
+**📚 API Documentation**:
+```bash
+curl https://finance-backend-jj4v.onrender.com/api
+```
+
+### Quick Test
+
+**Login (Admin):**
+```bash
+curl -X POST https://finance-backend-jj4v.onrender.com/api/auth/login \
+  -H "Content-Type: application/json" \
+  -d '{"email":"admin@finance.com","password":"admin123"}'
+```
+
+**Get Dashboard (requires token from login):**
+```bash
+curl -X GET https://finance-backend-jj4v.onrender.com/api/dashboard \
+  -H "Authorization: Bearer YOUR_TOKEN_HERE"
+```
+
+### 🔑 Test Credentials
+
+| Role | Email | Password | Permissions |
+|------|-------|----------|-------------|
+| Admin | admin@finance.com | admin123 | Full access - manage all users and records |
+| Analyst | analyst@finance.com | analyst123 | View all records, create/update own records, access insights |
+| Viewer | viewer@finance.com | viewer123 | View own records and dashboard summaries only |
+
 ## 🚀 Features
 
 - **User Authentication & Authorization**: JWT-based authentication with role-based access control
