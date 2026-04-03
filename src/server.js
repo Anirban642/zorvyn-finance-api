@@ -54,6 +54,39 @@ app.use((req, res) => {
   });
 });
 
+// TEMPORARY: Database setup endpoint
+// REMOVE THIS AFTER FIRST USE!
+app.post('/admin/setup-database', async (req, res) => {
+  const { secret } = req.body;
+  
+  // Simple protection
+  if (secret !== 'setup-finance-db-2026') {
+    return res.status(403).json({ error: 'Invalid secret' });
+  }
+  
+  try {
+    const fs = require('fs');
+    const path = require('path');
+    const pool = require('./config/database');
+    
+    // Read and execute schema
+    const schemaPath = path.join(__dirname, 'config/schema.sql');
+    const schema = fs.readFileSync(schemaPath, 'utf8');
+    await pool.query(schema);
+    
+    // Run seed data
+    const seedDatabase = require('./config/seedData');
+    await seedDatabase();
+    
+    res.json({ 
+      success: true, 
+      message: 'Database initialized successfully! REMOVE THIS ENDPOINT NOW!' 
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
 // Error handler
 app.use((err, req, res, next) => {
   console.error('Error:', err.stack);
